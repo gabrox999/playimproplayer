@@ -2,6 +2,12 @@
 
 A modern, feature-rich music dashboard application for quick access to your music resources across multiple platforms. Built with React and designed for both local and web deployment.
 
+## 🚀 Live Demo
+
+**Try it now:** https://gabrox999.github.io/playimproplayer/
+
+The app is automatically deployed to GitHub Pages on every push to the main branch.
+
 ## Features
 
 ### Multi-Platform Support
@@ -263,11 +269,25 @@ npm i -g vercel
 vercel --prod
 ```
 
-**GitHub Pages**
+**GitHub Pages (Automatic)**
+
+This repository is configured for automatic deployment to GitHub Pages:
+
+1. **Enable GitHub Pages:**
+   - Go to your repository settings → Pages
+   - Source: GitHub Actions
+   - The workflow will automatically deploy on push to main
+
+2. **Manual deployment (if needed):**
 ```bash
 npm run build
-# Copy dist folder contents to your gh-pages branch
+# Install gh-pages package
+npm install -D gh-pages
+# Deploy to gh-pages branch
+npx gh-pages -d dist
 ```
+
+Your app will be live at: `https://YOUR_USERNAME.github.io/playimproplayer/`
 
 **Self-Hosted (Nginx)**
 ```bash
