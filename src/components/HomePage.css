@@ -10,11 +10,45 @@
   margin-bottom: 50px;
 }
 
+.home-header-top {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  margin-bottom: 10px;
+}
+
 .home-header h1 {
-  margin: 0 0 10px 0;
+  margin: 0;
   color: #fff;
   font-size: 48px;
   font-weight: 700;
+}
+
+.home-header-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-import,
+.btn-export {
+  background: #3b82f6;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: background 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-import:hover,
+.btn-export:hover {
+  background: #2563eb;
 }
 
 .home-header p {

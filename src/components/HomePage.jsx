@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { PRESET_ICONS, PRESET_COLORS } from './constants';
 import './HomePage.css';
 
-const HomePage = ({ pages, onSelectPage, onAddPage, onEditPage, onDeletePage }) => {
+const HomePage = ({ pages, onSelectPage, onAddPage, onEditPage, onDeletePage, onImport, onExport }) => {
   const [isAdding, setIsAdding] = useState(false);
   const [editingId, setEditingId] = useState(null);
   const [formData, setFormData] = useState({
@@ -47,10 +47,33 @@ const HomePage = ({ pages, onSelectPage, onAddPage, onEditPage, onDeletePage }) 
     }
   };
 
+  const handleImportClick = () => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = '.json';
+    input.onchange = (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        onImport(file);
+      }
+    };
+    input.click();
+  };
+
   return (
     <div className="home-page">
       <div className="home-header">
-        <h1>Music Dashboard</h1>
+        <div className="home-header-top">
+          <h1>Play Impro Player</h1>
+          <div className="home-header-actions">
+            <button onClick={handleImportClick} className="btn-import" title="Import all data">
+              📤 Import
+            </button>
+            <button onClick={onExport} className="btn-export" title="Export all data">
+              📥 Export
+            </button>
+          </div>
+        </div>
         <p>Select a page to manage your music resources</p>
       </div>
 

@@ -137,6 +137,8 @@ function App() {
             onAddPage={handleAddPage}
             onEditPage={handleEditPage}
             onDeletePage={handleDeletePage}
+            onImport={handleImport}
+            onExport={handleExport}
           />
         ) : (
           <>
@@ -145,8 +147,6 @@ function App() {
               onAddResource={handleAddResource}
               onEditResource={handleEditResource}
               onDeleteResource={handleDeleteResource}
-              onImport={handleImport}
-              onExport={handleExport}
             />
             <div className="main-content">
               <VolumeControl />

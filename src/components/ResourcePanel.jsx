@@ -3,7 +3,7 @@ import { getPlayerType } from '../utils/urlConverter';
 import { PRESET_ICONS, PRESET_COLORS } from './constants';
 import './ResourcePanel.css';
 
-const ResourcePanel = ({ resources, onAddResource, onEditResource, onDeleteResource, onImport, onExport }) => {
+const ResourcePanel = ({ resources, onAddResource, onEditResource, onDeleteResource }) => {
   const [isAdding, setIsAdding] = useState(false);
   const [editingId, setEditingId] = useState(null);
   const [formData, setFormData] = useState({
@@ -39,30 +39,11 @@ const ResourcePanel = ({ resources, onAddResource, onEditResource, onDeleteResou
     setFormData({ title: '', url: '', color: '#3b82f6', icon: '🎵' });
   };
 
-  const handleImportClick = () => {
-    const input = document.createElement('input');
-    input.type = 'file';
-    input.accept = 'application/json';
-    input.onchange = (e) => {
-      const file = e.target.files[0];
-      if (file) {
-        onImport(file);
-      }
-    };
-    input.click();
-  };
-
   return (
     <div className="resource-panel">
       <div className="panel-header">
         <h2>Music Resources</h2>
         <div className="header-actions">
-          <button onClick={onExport} className="btn-icon" title="Export">
-            📥
-          </button>
-          <button onClick={handleImportClick} className="btn-icon" title="Import">
-            📤
-          </button>
           <button onClick={() => setIsAdding(true)} className="btn-add" disabled={isAdding}>
             + Add
           </button>
