@@ -31,7 +31,7 @@ The app is automatically deployed to GitHub Pages on every push to the main bran
 ### Multi-Platform Support
 - **YouTube**: Embedded players with full volume control via IFrame API
 - **Spotify**: Integrated Spotify player widgets
-- **Local Files**: Support for audio (MP3, WAV, OGG, AAC, FLAC, M4A) and video (MP4, WebM, MOV, AVI, MKV) files
+- **Local Files**: Support for audio (MP3, WAV, OGG, AAC, FLAC, M4A) and video (MP4, WebM, MOV, AVI, MKV) files served via localhost
 
 ### Organization & Management
 - **Multi-Page System**: Organize resources into separate pages with custom names, icons, and colors
@@ -419,12 +419,40 @@ Example: `http://192.168.1.100:5173`
 - **Page buttons**: Click any page name to jump to it
 
 ### Local Files
-**Important**: Local files only work on the device where they're stored. Use the full file path:
-- **Windows**: `C:\Music\song.mp3`
-- **Mac/Linux**: `/Users/yourname/Music/song.mp3`
-- **File URL**: `file:///path/to/file.mp3`
 
-The app will display a warning when adding local files and show helpful error messages if files are missing.
+**Important**: Due to browser security restrictions, you cannot use direct file system paths (`file://` URLs). Instead, you must serve your music files through a local web server.
+
+#### Setting Up a Local Music Server
+
+Choose one of these methods to serve your music files:
+
+**Python (Easiest - works on Mac/Linux/Windows):**
+```bash
+# Navigate to your music directory
+cd /path/to/your/music
+
+# Start a simple HTTP server
+python3 -m http.server 8000
+
+# Or with Python 2
+python -m SimpleHTTPServer 8000
+```
+
+**Node.js (If you have npm installed):**
+```bash
+# Install http-server globally (one-time setup)
+npm install -g http-server
+
+# Navigate to your music directory and serve
+cd /path/to/your/music
+http-server -p 8000
+```
+
+**Once the server is running**, use these URLs in the app:
+- `http://localhost:8000/song.mp3`
+- `http://localhost:8000/subfolder/track.mp3`
+
+**Why this is necessary**: Browsers block web pages from accessing `file://` paths as a security measure to prevent malicious websites from reading your file system. By running a local server, you're explicitly granting the app permission to access those files.
 
 ### Import/Export
 - Click **📥** to export all data (resources + pages) as JSON
@@ -498,7 +526,7 @@ Tests are located in `src/**/*.test.js` files alongside their source code.
 ## Known Limitations
 
 - Spotify embedded players don't support programmatic volume control (browser security)
-- Local files require full file system access (use file:// URLs or absolute paths)
+- Local files must be served via a local web server (localhost) - direct `file://` paths are blocked by browsers
 - YouTube API requires internet connection even for local deployment
 
 ## License
