@@ -51,7 +51,7 @@ const HomePage = ({ pages, onSelectPage, onAddPage, onEditPage, onDeletePage, on
     console.log('[Import] Opening file picker...');
     const input = document.createElement('input');
     input.type = 'file';
-    input.accept = '.json';
+    input.accept = 'application/json';
     input.onchange = (e) => {
       const file = e.target.files[0];
       console.log('[Import] File selected:', file ? { name: file.name, size: file.size, type: file.type } : 'No file');
