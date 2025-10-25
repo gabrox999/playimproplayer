@@ -79,26 +79,35 @@ export const importData = (file) => {
 
         // Handle old format (just resources array)
         if (Array.isArray(data)) {
-          resolve({
-            resources: data,
-            pages: [{
-              id: 1,
-              name: 'Page 1',
-              icon: '🎵',
-              color: '#3b82f6'
-            }]
-          });
+          const pages = [{
+            id: 1,
+            name: 'Page 1',
+            icon: '🎵',
+            color: '#3b82f6'
+          }];
+          // Assign all resources to first page
+          const resources = data.map(r => ({
+            ...r,
+            pageId: r.pageId || 1
+          }));
+          resolve({ resources, pages });
         } else {
           // New format with pages
-          resolve({
-            resources: data.resources || [],
-            pages: data.pages || [{
-              id: 1,
-              name: 'Page 1',
-              icon: '🎵',
-              color: '#3b82f6'
-            }]
-          });
+          const pages = data.pages || [{
+            id: 1,
+            name: 'Page 1',
+            icon: '🎵',
+            color: '#3b82f6'
+          }];
+          const firstPageId = pages[0]?.id || 1;
+
+          // Assign resources without pageId to first page
+          const resources = (data.resources || []).map(r => ({
+            ...r,
+            pageId: r.pageId !== undefined ? r.pageId : firstPageId
+          }));
+
+          resolve({ resources, pages });
         }
       } catch (error) {
         reject(new Error('Invalid JSON file'));
