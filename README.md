@@ -452,6 +452,25 @@ The codebase is modular and easy to extend:
 - Extend icon/color sets in `constants.js`
 - Add new storage operations in `storage.js`
 
+### Testing
+
+The project includes unit tests for utility functions using Vitest.
+
+**Run tests:**
+```bash
+npm test          # Run tests in watch mode
+npm run test:run  # Run tests once
+npm run test:ui   # Open Vitest UI (requires @vitest/ui)
+```
+
+**Test coverage:**
+- URL conversion and player type detection
+- localStorage operations
+- Import/export with backwards compatibility
+- Error handling
+
+Tests are located in `src/**/*.test.js` files alongside their source code.
+
 ## Browser Support
 
 - Chrome/Edge 90+
