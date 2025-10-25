@@ -8,6 +8,24 @@ A modern, feature-rich music dashboard application for quick access to your musi
 
 The app is automatically deployed to GitHub Pages on every push to the main branch.
 
+## 📸 Screenshots
+
+### Home Page - Page Management
+![Home Page](screenshoots/Screenshot%202025-10-25%20at%2009.22.00.jpg)
+*Organize your music into multiple pages with custom icons and colors*
+
+### Resource Grid - Playback View
+![Resource Grid](screenshoots/Screenshot%202025-10-25%20at%2009.29.48.jpg)
+*Clean tile-based interface with your music resources ready to play*
+
+### Active Players - Multi-Platform
+![Active Players](screenshoots/Screenshot%202025-10-25%20at%2009.30.01.jpg)
+*Play multiple Spotify and YouTube tracks simultaneously with individual volume controls*
+
+### Add Resource - Customization
+![Add Resource](screenshoots/Screenshot%202025-10-25%20at%2009.30.10.jpg)
+*Extensive icon and color customization for each resource*
+
 ## Features
 
 ### Multi-Platform Support
