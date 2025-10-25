@@ -32,8 +32,15 @@ jobs:
 
       - name: Install dependencies
         run: npm ci --prefer-offline --no-audit --no-fund
-        env:
-          HUSKY: 0
+        continue-on-error: true
+
+      - name: Upload npm debug log
+        uses: actions/upload-artifact@v4
+        if: ${{ always() }}
+        with:
+          name: npm-debug-log
+          path: /home/runner/.npm/_logs/*.log
+          retention-days: 5
 
       - name: Build
         run: npm run build

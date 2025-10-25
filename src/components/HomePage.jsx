@@ -48,18 +48,13 @@ const HomePage = ({ pages, onSelectPage, onAddPage, onEditPage, onDeletePage, on
   };
 
   const handleImportClick = () => {
-    console.log('[Import] Opening file picker...');
     const input = document.createElement('input');
     input.type = 'file';
     input.accept = 'application/json';
     input.onchange = (e) => {
       const file = e.target.files[0];
-      console.log('[Import] File selected:', file ? { name: file.name, size: file.size, type: file.type } : 'No file');
       if (file) {
-        console.log('[Import] Calling onImport with file...');
         onImport(file);
-      } else {
-        console.warn('[Import] No file was selected');
       }
     };
     input.click();
