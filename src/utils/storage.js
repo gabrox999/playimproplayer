@@ -72,13 +72,19 @@ export const exportData = (resources, pages) => {
 
 export const importData = (file) => {
   return new Promise((resolve, reject) => {
+    console.log('[Storage] importData called with file:', { name: file.name, size: file.size, type: file.type });
+
     const reader = new FileReader();
+
     reader.onload = (e) => {
+      console.log('[Storage] File read complete, parsing JSON...');
       try {
         const data = JSON.parse(e.target.result);
+        console.log('[Storage] JSON parsed successfully:', data);
 
         // Handle old format (just resources array)
         if (Array.isArray(data)) {
+          console.log('[Storage] Detected old format (array of resources)');
           const pages = [{
             id: 1,
             name: 'Page 1',
@@ -90,9 +96,11 @@ export const importData = (file) => {
             ...r,
             pageId: r.pageId || 1
           }));
+          console.log('[Storage] Converted to new format:', { resources: resources.length, pages: pages.length });
           resolve({ resources, pages });
         } else {
           // New format with pages
+          console.log('[Storage] Detected new format (with pages)');
           const pages = data.pages || [{
             id: 1,
             name: 'Page 1',
@@ -107,13 +115,21 @@ export const importData = (file) => {
             pageId: r.pageId !== undefined ? r.pageId : firstPageId
           }));
 
+          console.log('[Storage] Processed data:', { resources: resources.length, pages: pages.length });
           resolve({ resources, pages });
         }
       } catch (error) {
+        console.error('[Storage] JSON parse error:', error);
         reject(new Error('Invalid JSON file'));
       }
     };
-    reader.onerror = () => reject(new Error('Error reading file'));
+
+    reader.onerror = (error) => {
+      console.error('[Storage] FileReader error:', error);
+      reject(new Error('Error reading file'));
+    };
+
+    console.log('[Storage] Starting to read file...');
     reader.readAsText(file);
   });
 };

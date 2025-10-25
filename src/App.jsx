@@ -105,16 +105,26 @@ function App() {
   };
 
   const handleImport = async (file) => {
+    console.log('[App] handleImport called with file:', file);
     try {
+      console.log('[App] Starting importData...');
       const imported = await importData(file);
+      console.log('[App] Import successful, parsed data:', imported);
+
       const resourceCount = imported.resources?.length || 0;
       const pageCount = imported.pages?.length || 0;
+      console.log('[App] Import contains:', { resourceCount, pageCount });
 
       if (confirm(`Import ${resourceCount} resources and ${pageCount} pages? This will replace your current data.`)) {
+        console.log('[App] User confirmed import, applying data...');
         setResources(imported.resources);
         setPages(imported.pages);
+        console.log('[App] Import complete!');
+      } else {
+        console.log('[App] User cancelled import');
       }
     } catch (error) {
+      console.error('[App] Import error:', error);
       alert('Error importing file: ' + error.message);
     }
   };
