@@ -106,7 +106,7 @@ describe('storage utilities', () => {
     it('imports new format with resources and pages', async () => {
       const mockData = {
         version: '1.0',
-        resources: [{ id: 1, title: 'Song' }],
+        resources: [{ id: 1, title: 'Song', pageId: 1 }],
         pages: [{ id: 1, name: 'Page 1' }]
       }
       const file = new File([JSON.stringify(mockData)], 'test.json', { type: 'application/json' })
@@ -117,13 +117,30 @@ describe('storage utilities', () => {
       expect(result.pages).toEqual(mockData.pages)
     })
 
+    it('assigns resources without pageId to first page', async () => {
+      const mockData = {
+        version: '1.0',
+        resources: [
+          { id: 1, title: 'Song 1' }, // No pageId
+          { id: 2, title: 'Song 2', pageId: 5 } // Has pageId
+        ],
+        pages: [{ id: 2, name: 'Page 1' }]
+      }
+      const file = new File([JSON.stringify(mockData)], 'test.json', { type: 'application/json' })
+
+      const result = await importData(file)
+
+      expect(result.resources[0].pageId).toBe(2) // First page id
+      expect(result.resources[1].pageId).toBe(5) // Original pageId preserved
+    })
+
     it('imports old format (just resources array)', async () => {
       const mockResources = [{ id: 1, title: 'Song' }]
       const file = new File([JSON.stringify(mockResources)], 'test.json', { type: 'application/json' })
 
       const result = await importData(file)
 
-      expect(result.resources).toEqual(mockResources)
+      expect(result.resources).toEqual([{ id: 1, title: 'Song', pageId: 1 }])
       expect(result.pages).toEqual([{
         id: 1,
         name: 'Page 1',
